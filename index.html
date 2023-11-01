@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minecraft SRV Record Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #output {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Minecraft SRV Record Generator</h1>
+    <label for="serverIp">Server IP with Port:</label><br>
+    <input type="text" id="serverIp" name="serverIp"><br>
+    <button onclick="generateSRV()">Generate</button>
+
+    <div id="output"></div>
+
+    <script>
+        function generateSRV() {
+            var ipInput = document.getElementById('serverIp').value;
+            var outputDiv = document.getElementById('output');
+
+            if(ipInput.includes(":")) {
+                var ipParts = ipInput.split(":");
+                var srvName = "_minecraft._tcp";
+                var srvValue = "0 " + ipParts[1] + " " + ipParts[0];
+                var ttl = 30;
+                var priority = 1;
+
+                outputDiv.innerHTML = "SRV Name: " + srvName + "<br>SRV Value: " + srvValue + "<br>TTL: " + ttl + "<br>Priority: " + priority;
+            } else {
+                outputDiv.innerHTML = "Please enter a valid IP with port.";
+            }
+        }
+    </script>
+</body>
+</html>
